@@ -1,0 +1,377 @@
+1º Defina sempre variáveis com contexto
+
+Errado:
+let teste = "nome"
+let teste2 = "sobrenome"
+testeGeral = teste + teste2
+
+Correto: 
+let nome = "nome"
+let sobrenome = "sobrenome"
+nomeCompleto = nome + sobrenome
+
+-------------------------------------------------------
+
+2º Fuja de abreviações
+
+Errado:
+let idCad = 2
+let idCar = 35
+
+Correto: 
+let idCadastro = 2
+let idCarro = 35
+
+-------------------------------------------------------
+
+3º Redundância
+
+Errado: 
+let nota = {
+    notaName: nomeDaNota,
+    notaData: date,
+    notaNumber: documentNumber,
+    value: 0,
+    customer: customer
+}
+
+Correto: 
+let nota = {
+    name: nomeDaNota,
+    data: date,
+    number: documentNumber,
+    value: 0,
+    customer: customer
+}
+
+-------------------------------------------------------
+
+4º Mesclar idiomas
+
+* sem exeplos, pois é compreensível
+
+-------------------------------------------------------
+
+5º Evite números mágicos
+
+Errado: 
+invoice.value = invoice.value - 3.50
+invoice.value = invoice.value - (invoice.value * 0.3)
+let sharedTax = GetSharedTax("5678", "4567")
+
+Correto:
+const  platFormFixedTax = 3.50
+const discountPercentage = 0.3
+const retailerId = "5678"
+const platFormId = "4567"
+
+-------------------------------------------------------
+
+6º Comentários
+
+Errado: 
+// Comparando se tal coisa é igual a true, e outra coisa é false, e isso é maior que 3
+// Para fazer tal coisa!
+if(talCoisa == true && outraCoisa == false && isso > 3) {  }
+
+Correto:
+"Desenvolver códigos de forma expressiva, ou seja, para explicar lógica do negócio"
+
+/*
+    Função que entra em contato com a API do banco do brasil
+    Para calcular as taxas corretas para cobrança de produtos
+    No boleto.
+    Esa função deve receber: ... ... ...
+    E retorna: O valor da nota com todos os descontos.
+*/
+
+-------------------------------------------------------
+
+7º Funções limpas:
+
+Errado:
+A) let liquidValue = invoice.value - sharedTax
+
+Correto:
+A) invoice.value = GetLiquidValue(invoice.value)
+
+function GetLiquidValue(value) {
+    const retailerId = "5678"
+    const platformId = "4567"
+    let sharedTax = GetSharedTax(retailerId, platformId)
+    return value - sharedTax
+}
+
+-------------------------------------------------------
+
+Errado:
+B) invoice.value = liquidValue - generalTax - cityTax - companyTax
+
+Correto:
+B) invoice.value = GetTaxDeductedValue(invoice.value, invoice.document)
+
+function GetTaxDeductedValue(value, document) {
+    let generalTax = GetTaxValueById(document)
+    let cityTax = GetCityTaxById(document)
+    let companyTax = GetCompanyTax(document)
+    return value - generalTax - cityTax - companyTax
+}
+
+-------------------------------------------------------
+
+Errado:
+C) invoice.value = invoice.value - platFormFixedTax
+
+Correto:
+C) invoice.value = GetValueDeductedByPlatFormTaxes(invoice.value)
+
+function GetValueDeductedByPlatFormTaxes(value) {
+    const platFormFixedTax = 3.50
+    return value - platFormFixedTax
+}
+
+-------------------------------------------------------
+
+Errado:
+D) invoice.value = invoice.value - (invoice.value * discountPercentage) 
+return invoice
+
+Correto:
+D) invoice.value = GetValueDeductedByDiscount(invoice.value)
+
+function GetValueDeductedByDiscount(value) {
+    const discountPercentage = 0.3
+    return value - (value * discountPercentage)
+}
+
+-------------------------------------------------------
+
+8º Objetos como parâmetros
+
+Errato:
+
+function CalculateTax(invoiceName, document, value, customer, date) {
+    let invoice = {
+        name: invoiceName,
+        date: date,
+        number: document,
+        value = 0,
+        customer: customer,
+    }
+}
+
+CalculateTax("abc", "12355", 30, "Name Sobrenome", Date.now())
+
+Correto:
+
+let purchase = {
+    name: "ABC",
+    date: Date.now(),
+    number: "2323",
+    value: 120,
+    customer: "Nome Sobrenome"
+}
+
+function CalculateTax(purchase) {
+    
+    Correto: 
+    let invoice = {...purchase}
+    
+    Errado:
+    let invoice = {
+        name: purchase.name,
+        date: purchase.date,
+        number: purchase.number,
+        value = purchase.value,
+        customer: purchase.customer
+    }
+}
+
+CalculateTax(purchase)
+
+-------------------------------------------------------
+
+9º Parâmetros Inteligentes
+
+Errado:
+
+function GetLiquidValue(value) {
+    const retailerId = "5678"
+    const platformId = "4567"
+    let sharedTax = GetSharedTax(retailerId, platformId)
+    return value - sharedTax
+}
+
+function GetTaxDeductedValue(value, document) {
+    let generalTax = GetTaxValueById(document)
+    let cityTax = GetCityTaxById(document)
+    let companyTax = GetCompanyTax(document)
+    return value - generalTax - cityTax - companyTax
+}
+
+function GetValueDeductedByPlatFormTaxes(value) {
+    const platFormFixedTax = 3.50
+    return value - platFormFixedTax
+}
+
+function GetValueDeductedByDiscount(value) {
+    const discountPercentage = 0.3
+    return value - (value * discountPercentage)
+}
+
+A) invoice.value = GetLiquidValue(invoice.value)
+B)invoice.value = GetTaxDeductedValue(invoice.value, invoice.document)
+C) invoice.value = GetValueDeductedByPlatFormTaxes(invoice.value)
+D) invoice.value = GetValueDeductedByDiscount(invoice.value)
+return invoice
+
+Correto:
+
+function GetLiquidValue({value}) {
+    const retailerId = "5678"
+    const platformId = "4567"
+    let sharedTax = GetSharedTax(retailerId, platformId)
+    return value - sharedTax
+}
+
+function GetTaxDeductedValue({value = 30, document = "32213"}) {
+    let generalTax = GetTaxValueById(document)
+    let cityTax = GetCityTaxById(document)
+    let companyTax = GetCompanyTax(document)
+    return value - generalTax - cityTax - companyTax
+}
+
+function GetValueDeductedByPlatFormTaxes({value}) {
+    const platFormFixedTax = 3.50
+    return value - platFormFixedTax
+}
+
+function GetValueDeductedByDiscount({value}) {
+    const discountPercentage = 0.3
+    return value - (value * discountPercentage)
+}
+
+A) invoice.value = GetLiquidValue(invoice)
+B)invoice.value = GetTaxDeductedValue(invoice)
+C) invoice.value = GetValueDeductedByPlatFormTaxes(invoice)
+D) invoice.value = GetValueDeductedByDiscount(invoice)
+return invoice
+
+
+-- CASO O USUÁRIO NÃO PREENCHA POR EXEMPLO ALGUM CAMPO --
+
+function CalculateTax(purchase) {
+
+    let defaults = {
+        name: "ABC",
+        number: "123",
+        value: 20,
+        customer: "Lorem",
+        date: new Date()
+    }
+
+    let invoice = {...purchase}
+
+    invoice = Object.assign(defaults, invoice)
+
+    invoice.value = GetLiquidValue(invoice)
+    invoice.value = GetTaxDeductedValue(invoice)
+    invoice.value = GetValueDeductedByPlatFormTaxes(invoice)
+    invoice.value = GetValueDeductedByDiscount(invoice)
+    return invoice
+
+}
+
+-------------------------------------------------------
+
+10º Organização de funções no arquivo
+OBS: Coloque sempre as funções principais no topo do seu arquivo
+
+
+-- PRIMEIRO -- 
+function CalculateTax(purchase) {
+
+    let defaults = {
+        name: "ABC",
+        number: "123",
+        value: 20,
+        customer: "Lorem",
+        date: new Date()
+    }
+
+    let invoice = {...purchase}
+
+    invoice = Object.assign(defaults, invoice)
+
+    invoice.value = GetLiquidValue(invoice)
+    invoice.value = GetTaxDeductedValue(invoice)
+    invoice.value = GetValueDeductedByPlatFormTaxes(invoice)
+    invoice.value = GetValueDeductedByDiscount(invoice)
+    return invoice
+
+}
+
+-- SEGUNDO --
+function GetLiquidValue({value}) {
+    const retailerId = "5678"
+    const platformId = "4567"
+    let sharedTax = GetSharedTax(retailerId, platformId)
+    return value - sharedTax
+}
+
+function GetTaxDeductedValue({value = 30, document = "32213"}) {
+    let generalTax = GetTaxValueById(document)
+    let cityTax = GetCityTaxById(document)
+    let companyTax = GetCompanyTax(document)
+    return value - generalTax - cityTax - companyTax
+}
+
+function GetValueDeductedByPlatFormTaxes({value}) {
+    const platFormFixedTax = 3.50
+    return value - platFormFixedTax
+}
+
+function GetValueDeductedByDiscount({value}) {
+    const discountPercentage = 0.3
+    return value - (value * discountPercentage)
+}
+
+-------------------------------------------------------
+
+11º Padronizar sempre
+
+Errado:
+getUserData()
+getProductRecord()
+getEmailInfo()
+
+Correto:
+getUserData()
+getProductData()
+getEmailData()
+
+-------------------------------------------------------
+
+12º Imutabilidade
+
+let users = [{nome: "a"}, {nome: "B"}]
+let facebookUsers = AddUserFromFacebook(users)
+users = [...users,...facebookUsers]
+GetFirstUser(users)
+
+// ABC.JS
+function AddUserFromFacebook(users) {
+    let newUsers = [...users]
+    let isMonday = true
+    if(isMonday) {
+        newUsers.length = 0
+    } else {
+        newUsers.push({nome: "facee"})
+    }
+    return newUsers
+}
+
+// Users.JS
+function GetFirstUser(users) {
+    return users[0]
+}

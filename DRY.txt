@@ -1,0 +1,74 @@
+DRY - Don't Repeat Yourself
+É um princípio fundamental na programação que enfatiza a importância de evitar a repetição de código
+Cada pedaço do nosso código precisa ser representado de forma única e precisa.
+
+Objetivo:
+Tornar o código mais fácil de ler, entender e manter.Evitando problemas de códigos confusos e difíceis de manter,
+ além de aumentar a produtividade e a qualidade do código.
+
+ Exemplo de DRY:
+ Pode ser aplicado quando temos um trecho do código (fora da função) que é chamada em várias partes do código.
+
+ Solução:
+ Em vez de escrevê-lo em vários lugares, podemos (criar uma única versão desse código, em forma de função) e 
+ chamá-la sempre que precisarmos. Isso garante que haja apenas uma única fonte de verdade para essa função,
+ o que facilita a manutenção e a leitura do código.
+
+Outra forma de seguir o DRY:
+Evitar duplicação de dados. Por exemplo, se temos uma lista de produtos em nosso código, é importante garantir
+que cada produto seja representado de forma única. Caso contrário, corremos o risco de ter informações
+inconsistentes ou desatualizadas em diferentes partes do código.
+
+-------------------------------------------------------
+
+Exemplo de código que não segue o conceito DRY:
+
+function calculateTotalPrice3(item1, item2, item3) {
+    return item1.price + item2.price + item3.price
+}
+
+function calculateTotalPrice4(item1, item2, item3, item4) {
+    return item1.price + item2.price + item3.price + item4.price
+}
+
+function calculateTotalPrice5(item1, item2, item3, item4, item5) {
+    return item1.price + item2.price + item3.price + item4.price + item5.price
+}
+
+const product1 = { name: "Product 1", price: 5 }
+const product2 = { name: "Product 2", price: 10 }
+const product3 = { name: "Product 3", price: 15 }
+const product4 = { name: "Product 4", price: 20 }
+const product5 = { name: "Product 5", price: 25 }
+
+console.log(calculateTotalPrice3(product1, product2, product3))
+
+console.log(calculateTotalPrice4(product1, product2, product3, product4))
+
+console.log(calculateTotalPrice5(product1, product2, product3, product4, product5))
+
+-------------------------------------------------------
+
+Exemplo de código que segue o conceito DRY:
+
+function calculateTotalPrice(products, maxSize) {
+    let productsList = [...products]
+    productsList.length = maxSize
+    let total = 0
+    productsList.forEach(product => {
+        total += product.price
+    })
+    return total
+}
+
+let products = [
+    { name: "Product 1", price: 5 },
+    { name: "Product 2", price: 10 },
+    { name: "Product 3", price: 15 },
+    { name: "Product 4", price: 20 },
+    { name: "Product 5", price: 25 }
+]
+
+console.log(calculateTotalPrice(products, 3))
+console.log(calculateTotalPrice(products, 4))
+console.log(calculateTotalPrice(products, 5))

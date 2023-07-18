@@ -1,0 +1,49 @@
+1º Limpando laços de repetição 
+
+let students = [
+    {name: "Victor", country: "Brasil"},
+    {name: "Lima", country: "EUA"},
+    {name: "João", country: "Japan"},
+    {name: "Joãoviski", country: "Russia"}
+]
+
+Exemplo 1
+
+Errado:
+for(let i = 0; i < students.length; i++) {
+    let student = students[i].year = "2023"
+}
+
+Certo: 
+students.forEach(student => student.year = "2023")
+
+students.forEach(student =>
+    {
+        student.year = "2023"
+        student.age = 24
+    })
+
+-------------------------------------------------------
+
+Exemplo 2
+
+Errado:
+let countries = []
+for(let i = 0; i < students.length; i++) {
+    let student = students[i]
+    countries.push(student.country)
+}
+
+Certo:
+A)      let countries = students.map(s => s.country)
+
+A.1)    let names = students.map(student => student.name)
+
+A.2)    let complexArray = students.map(student => {
+        return {...student, date: Date.now()}
+        })
+
+
+B) let countries = students.map(s => s.country)
+
+map() -> Mapeia um novo array, percorre por todos os elementos array

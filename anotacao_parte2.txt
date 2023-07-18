@@ -1,0 +1,57 @@
+1º String Literals
+
+Errado:
+
+function Teste() {
+    let nome = "Nome"
+    let sobrenome = "Sobrenome"
+    let numero = 19
+
+    let string = "Seu nome é: " + nome + " E seu sobrenome é: " + sobrenome + " E seu numero é: " + numero
+}
+
+Certo: 
+
+function Teste() {
+    let nome = "Nome"
+    let sobrenome = "Sobrenome"
+    let numero = 19
+
+    let string = `Seu nome é: ${nome} E seu sobrenome é: ${sobrenome} E seu numero é: ${numero}`
+}
+
+-------------------------------------------------------
+
+2º Spread e Destructuring
+
+Errado:
+
+function Teste(purchase) {
+    let customer = purchase.customer
+    let product = purchase.product
+    let value = purchase.value
+}
+
+Teste({customer: "Nome Sobrenome", product: "Course", value: 120})
+
+Certo: 
+
+function Teste(purchase) {
+    let {customer, product, value} = purchase
+}
+
+Teste({customer: "Nome Sobrenome", product: "Course", value: 120})
+
+--
+
+function Teste(array) {
+    let otherArray = ["A"]
+
+    let newArray = [...otherArray, ...array]
+
+}
+
+-------------------------------------------------------
+
+3º Promise hell
+

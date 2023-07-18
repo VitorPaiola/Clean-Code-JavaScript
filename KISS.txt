@@ -1,0 +1,29 @@
+KISS - Keep It Simple, Stupid
+É um princípio popular na programação. Baseia-se em soluções simples, pois é melhor manter 
+coisas simples do que complicá-las desnecessariamente.
+
+Objetivo:
+Em programação é importante escrever código que seja fácil de entender e manter. Isso significa
+escrever código que seja limpo, organizado e documentado. Além disso, é importante evitar
+criar soluções complexas que possam causar problemas futuros.
+
+Benefícios:
+Torna o processo de desenvolvimento de software mais eficiente. Quando o código é simples 
+e fácil de entender, é fácil trabalhar em equipe e colaborar com outros programadores.
+Além disso, é mais fácil adicionar novas funcionalidade e corrigir bugs no código.
+
+O código simples geralmente é mais confiável do que o código complexo. Quando mais 
+complexoé o código, mais chances existirem de que ele contenha erros ou falhas. Isso pode levar
+a problemas de desempenho e a instabilidade do software. Ao contrário, código simples tem
+menos probabilidade de conter erros e, portanto, é mais conviável.
+
+Conceito:
+Pode ser aplicado em arquitetura de software. É importante criar soluções de softwareque sejam 
+escaláveis e flexíveis, mas que ao mesmo tempo sejam simples e fáceis de entender. Pois ajuda
+a garantir que o software seja capaz de crescer e evoluir com o tempo, sem ficar cada vez mais 
+complexo e difícil de gerenciar.
+
+Ao seguir este conceito, é possível criar soluções de softwares simples, eficientes e confiáveis.
+Tornando o processo de desenvolvimento de software mais eficiente e ajuda a garantir que o software
+seja capaz de evoluir e crescer com o tempo.
+

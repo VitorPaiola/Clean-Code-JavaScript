@@ -1,0 +1,37 @@
+1º Feature do JavaScript ?
+
+-------------------------------------------------------
+
+let aluno = {
+    name: "Nome Sobrenome",
+    year: "2023",
+    course: {
+        name: "Anything",
+        duration: 123
+    }
+}
+
+-------------------------------------------------------
+
+Não está Errado, porém é possível simplificar
+
+// let {course} = aluno
+let course = aluno.course.name
+
+if(aluno.course != undefined) {
+    course = aluno.course.name
+} else {
+    course = undefined
+}
+
+-------------------------------------------------------
+
+Versão simplificada
+
+/*
+    Se o valor esquerdo for undefined retorna undefined para a variável sem quebrar o programa
+    Caso contrário retorne o lado direito como undefined sem quebrar o programa
+*/
+
+// let {course} = aluno
+let course = aluno.course?.name
